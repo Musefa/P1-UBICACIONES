@@ -1,0 +1,5 @@
+# Ignore hidden directories
+.*
+
+# Ignore Visual Studio Code directories
+.vscode/
