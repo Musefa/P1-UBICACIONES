@@ -57,17 +57,17 @@ public class Ubicacio {
     }
 
     // Converteix graus a radians
-    private double toRadiants(double graus) {
+    private static double toRadiants(double graus) {
         return graus * PI_TO_RADIANTS;
     }
 
     // Calcula el valor a de la fórmula de Haversine
-    private double calculateA(double dlat, double dlon, double lat1, double lat2) {
+    private static double calculateA(double dlat, double dlon, double lat1, double lat2) {
         return Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
     }
 
     // Calcula la distància entre dos punts amb la fórmula de Haversine
-    private double calculateDistance(double a) {
+    private static double calculateDistance(double a) {
         return RADI_TERRA * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
