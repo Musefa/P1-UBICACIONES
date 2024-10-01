@@ -4,6 +4,15 @@ public class UsaUbicacio {
         // Proves per a constructor i getters
         Ubicacio u1 = new Ubicacio(41.3879, 2.16992); // Barcelona
         Ubicacio u2 = new Ubicacio(48.8566, 2.3522); // París
+        Ubicacio u11 = new Ubicacio(); // Ubicació amb latitud i longitud 0
+
+        // Test del constructor sense paràmetres
+        System.out.println("Prova constructor sense paràmetres:");
+        if (u11.getLatitud() != 0 || u11.getLongitud() != 0) {
+            System.out.println("Incorrecte!\n");
+        } else {
+            System.out.println("Correcte!\n");
+        }
         
         // Test dels getters
         System.out.println("Prova getters:");

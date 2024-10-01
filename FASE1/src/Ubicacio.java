@@ -15,6 +15,11 @@ public class Ubicacio {
         this.longitud = longitud;
     }
 
+    // Constructor de la ubicació sense paràmetres
+    public Ubicacio() {
+        longitud = latitud = 0;
+    }
+
     // Retorna la latitud de la ubicació
     public double getLatitud() {
         return latitud;
