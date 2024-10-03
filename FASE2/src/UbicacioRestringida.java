@@ -1,6 +1,6 @@
 public class UbicacioRestringida {
 
-    // Constants
+    // Constantes de clase
     public static final double LATITUD_MIN = -90.0;
     public static final double LATITUD_MAX = 90.0;
     public static final double LONGITUD_MIN = -180.0;
@@ -9,28 +9,89 @@ public class UbicacioRestringida {
     private static final double RADI_TERRA = 6378.137;
     private static final double PI_TO_RADIANTS = Math.PI / 180;
 
-    // Atributs objecte
+    // Atributos de objeto
     private double latitud;
     private double longitud;
 
-    // Atributs de classe
+    // Atributos de classe
     private static double latIni;
     private static double lonIni;
     private static double latFi;
     private static double lonFi;
 
-    // Comprueba si la ubicación está dentro de un rango
+    /**
+     * Comprueba si la ubicación está dentro de un rango.
+     * 
+     * @param valor       El valor a comprobar.
+     * @param intervalIni El inicio del intervalo.
+     * @param intervalFi  El final del intervalo.
+     * @return true si el valor está dentro del rango, false en caso contrario.
+     */
     public static boolean estaDinsRang(double valor, double intervalIni, double intervalFi) {
         return valor >= intervalIni && valor <= intervalFi;
     }
 
+    /**
+     * Comprueba si una ubicación es válida.
+     * 
+     * @param latitud  La latitud de la ubicación.
+     * @param longitud La longitud de la ubicación.
+     * @return true si la ubicación es válida, false en caso contrario.
+     */
     public static boolean esUbicacioValida(double latitud, double longitud) {
-        return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX) && estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
-                && estaDinsRang(longitud, lonIni, lonFi) && estaDinsRang(latitud, latIni, latFi);
+        return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
+                && estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
+                && estaDinsRang(longitud, lonIni, lonFi)
+                && estaDinsRang(latitud, latIni, latFi);
     }
 
-    // Constructor de la ubicació
+    /**
+     * Comprueba si una latitud es válida.
+     * 
+     * @param latitud La latitud a comprobar.
+     * @return true si la latitud es válida, false en caso contrario.
+     */
+    public static boolean esLatitudValida(double latitud) {
+        return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
+                && estaDinsRang(latitud, latIni, latFi);
+    }
+
+    /**
+     * Comprueba si una longitud es válida.
+     * 
+     * @param longitud La longitud a comprobar.
+     * @return true si la longitud es válida, false en caso contrario.
+     */
+    public static boolean esLongitudValida(double longitud) {
+        return estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
+                && estaDinsRang(longitud, lonIni, lonFi);
+    }
+
+    /**
+     * Comprueba si los nuevos límites están dentro del mapa.
+     * 
+     * @param newLatIni La nueva latitud inicial.
+     * @param newLatFi  La nueva latitud final.
+     * @param newLonIni La nueva longitud inicial.
+     * @param newLonFi  La nueva longitud final.
+     * @return true si los nuevos límites están dentro del mapa, false en caso
+     *         contrario.
+     */
+    public static boolean esAlMapa(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+        return estaDinsRang(newLatIni, LATITUD_MIN, LATITUD_MAX)
+                && estaDinsRang(newLonIni, LONGITUD_MIN, LONGITUD_MAX)
+                && estaDinsRang(newLatFi, LATITUD_MIN, LATITUD_MAX)
+                && estaDinsRang(newLonFi, LONGITUD_MIN, LONGITUD_MAX);
+    }
+
+    /**
+     * Constructor de la ubicación con parámetros.
+     * 
+     * @param latitud  La latitud de la ubicación.
+     * @param longitud La longitud de la ubicación.
+     */
     public UbicacioRestringida(double latitud, double longitud) {
+        System.out.println(getLimitesRegion());
         if (esUbicacioValida(latitud, longitud)) {
             this.latitud = latitud;
             this.longitud = longitud;
@@ -39,68 +100,126 @@ public class UbicacioRestringida {
         }
     }
 
-    // Constructor de la ubicació sense paràmetres
+    /**
+     * Constructor de la ubicación sin parámetros.
+     */
     public UbicacioRestringida() {
         longitud = latitud = 0;
     }
 
-    // Retorna la latitud de la ubicació
+    /**
+     * Retorna la latitud de la ubicación.
+     * 
+     * @return La latitud de la ubicación.
+     */
     public double getLatitud() {
         return latitud;
     }
 
-    // Retorna la longitud de la ubicació
+    /**
+     * Retorna la longitud de la ubicación.
+     * 
+     * @return La longitud de la ubicación.
+     */
     public double getLongitud() {
         return longitud;
     }
 
-    // Modifica la latitud de la ubicació
+    /**
+     * Modifica la latitud de la ubicación.
+     * 
+     * @param latitud La nueva latitud.
+     */
     public void setLatitud(double latitud) {
-        this.latitud = latitud;
+        System.out.println(getLimitesRegion());
+        if (esLatitudValida(latitud)) {
+            this.latitud = latitud;
+        }
     }
 
-    // Modifica la longitud de la ubicació
+    /**
+     * Modifica la longitud de la ubicación.
+     * 
+     * @param longitud La nueva longitud.
+     */
     public void setLongitud(double longitud) {
-        this.longitud = longitud;
+        System.out.println(getLimitesRegion());
+        if (esLongitudValida(longitud)) {
+            this.longitud = longitud;
+        }
     }
 
-    // Retorna la informació de la ubicació amb un format concret de text
+    /**
+     * Retorna la información de la ubicación con un formato concreto de texto.
+     * 
+     * @return La información de la ubicación.
+     */
     public String toString() {
         return "Ubicacio [latitud=" + getLatitud() + ", longitud=" + getLongitud() + "]";
     }
 
-    // Copia els valors de la ubicació actual a una nova ubicació que té assignada
-    // una posicion de memoria diferent
+    /**
+     * Copia los valores de la ubicación actual a una nueva ubicación que tiene
+     * asignada una posición de memoria diferente.
+     * 
+     * @return Una nueva instancia de UbicacioRestringida con los mismos valores.
+     */
     public UbicacioRestringida copiaUbicacio() {
         return new UbicacioRestringida(this.getLatitud(), this.getLongitud());
     }
 
-    // Compara si dues ubicacions són iguals
+    /**
+     * Compara si dos ubicaciones son iguales.
+     * 
+     * @param ubicacio La ubicación a comparar.
+     * @return true si las ubicaciones son iguales, false en caso contrario.
+     */
     private boolean equalsUbicacio(UbicacioRestringida ubicacio) {
-        return Math.abs(this.getLatitud() - ubicacio.getLatitud()) < TOLERANCIA // Si la diferencia es menor que la
-                                                                                // tolerancia llavors son iguals
+        return Math.abs(this.getLatitud() - ubicacio.getLatitud()) < TOLERANCIA
                 && Math.abs(this.getLongitud() - ubicacio.getLongitud()) < TOLERANCIA;
     }
 
-    // Converteix graus a radians
+    /**
+     * Convierte grados a radianes.
+     * 
+     * @param graus Los grados a convertir.
+     * @return Los grados convertidos a radianes.
+     */
     private static double toRadiants(double graus) {
         return graus * PI_TO_RADIANTS;
     }
 
-    // Calcula el valor a de la fórmula de Haversine
-    private static double calculateA(double dlat, double dlon, double lat1, double lat2) {
-        return Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+    /**
+     * Calcula el valor a de la fórmula de Haversine.
+     * 
+     * @param dLat La diferencia de latitud.
+     * @param dLon La diferencia de longitud.
+     * @param lat1 La latitud del primer punto.
+     * @param lat2 La latitud del segundo punto.
+     * @return El valor a de la fórmula de Haversine.
+     */
+    private static double calculateA(double dLat, double dLon, double lat1, double lat2) {
+        return Math.pow(Math.sin(dLat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLon / 2), 2);
     }
 
-    // Calcula la distància entre dos punts amb la fórmula de Haversine
+    /**
+     * Calcula la distancia entre dos puntos con la fórmula de Haversine.
+     * 
+     * @param a El valor a de la fórmula de Haversine.
+     * @return La distancia entre dos puntos.
+     */
     private static double calculateDistance(double a) {
         return RADI_TERRA * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
-    // Calcula la distància entre dues ubicacions
+    /**
+     * Calcula la distancia entre dos ubicaciones.
+     * 
+     * @param ubicacio La ubicación a la que se quiere calcular la distancia.
+     * @return La distancia entre las dos ubicaciones.
+     */
     public double distancia(UbicacioRestringida ubicacio) {
-
-        double lat1, lon1, lat2, lon2, dlat, dlon, a, distancia = 0;
+        double lat1, lon1, lat2, lon2, dLat, dLon, a, distancia = 0;
         boolean igual = equalsUbicacio(ubicacio);
 
         if (igual) {
@@ -110,12 +229,54 @@ public class UbicacioRestringida {
             lon1 = toRadiants(this.getLongitud());
             lat2 = toRadiants(ubicacio.getLatitud());
             lon2 = toRadiants(ubicacio.getLongitud());
-            dlat = lat2 - lat1;
-            dlon = lon2 - lon1;
-            a = calculateA(dlat, dlon, lat1, lat2);
+            dLat = lat2 - lat1;
+            dLon = lon2 - lon1;
+            a = calculateA(dLat, dLon, lat1, lat2);
             distancia = calculateDistance(a);
         }
 
         return distancia;
+    }
+
+    /**
+     * Método para consultar los límites de la región rectangular.
+     * 
+     * @return Los límites de la región rectangular.
+     */
+    public static String getLimitesRegion() {
+        return "Latitud Inicial: " + latIni + ", Latitud Final: " + latFi + ", Longitud Inicial: " + lonIni
+                + ", Longitud Final: " + lonFi;
+    }
+
+    /**
+     * Comprueba si la nueva región es más grande que la actual.
+     * 
+     * @param newLatIni La nueva latitud inicial.
+     * @param newLatFi  La nueva latitud final.
+     * @param newLonIni La nueva longitud inicial.
+     * @param newLonFi  La nueva longitud final.
+     * @return true si la nueva región es más grande, false en caso contrario.
+     */
+    public static boolean regioMesGran(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+        return (newLatFi - newLatIni) * (newLonFi - newLonIni) > (latFi - latIni) * (lonFi - lonIni);
+    }
+
+    /**
+     * Método para modificar los límites de la región rectangular.
+     * 
+     * @param newLatIni La nueva latitud inicial.
+     * @param newLatFi  La nueva latitud final.
+     * @param newLonIni La nueva longitud inicial.
+     * @param newLonFi  La nueva longitud final.
+     */
+    public static void setLimitesRegion(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+        System.out.println(getLimitesRegion());
+        if (regioMesGran(newLatIni, newLatFi, newLonIni, newLonFi)
+                && esAlMapa(newLatIni, newLatFi, newLonIni, newLonFi)) {
+            latIni = newLatIni;
+            latFi = newLatFi;
+            lonIni = newLonIni;
+            lonFi = newLonFi;
+        }
     }
 }
