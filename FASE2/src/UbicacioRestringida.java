@@ -110,7 +110,7 @@ public class UbicacioRestringida {
     }
 
     /**
-     * Retorna la latitud de la ubicación.
+     * Devuelve la latitud de la ubicación.
      * 
      * @return La latitud de la ubicación.
      */
@@ -119,7 +119,7 @@ public class UbicacioRestringida {
     }
 
     /**
-     * Retorna la longitud de la ubicación.
+     * Devuelve la longitud de la ubicación.
      * 
      * @return La longitud de la ubicación.
      */
@@ -156,7 +156,7 @@ public class UbicacioRestringida {
     }
 
     /**
-     * Retorna la información de la ubicación con un formato concreto de texto.
+     * Devuelve la información de la ubicación con un formato concreto de texto.
      * 
      * @return La información de la ubicación.
      */
