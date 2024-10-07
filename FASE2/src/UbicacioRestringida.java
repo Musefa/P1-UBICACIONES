@@ -14,10 +14,10 @@ public class UbicacioRestringida {
     private double longitud;
 
     // Atributos de classe
-    private static double latIni;
-    private static double lonIni;
-    private static double latFi;
-    private static double lonFi;
+    private static double latIni = LATITUD_MIN / 3;
+    private static double lonIni = LONGITUD_MIN / 3;
+    private static double latFi = LATITUD_MAX / 3;
+    private static double lonFi = LONGITUD_MAX / 3;
 
     /**
      * Comprueba si la ubicación está dentro de un rango.
@@ -91,7 +91,6 @@ public class UbicacioRestringida {
      * @param longitud La longitud de la ubicación.
      */
     public UbicacioRestringida(double latitud, double longitud) {
-        System.out.println(getLimitesRegion());
         if (esUbicacioValida(latitud, longitud)) {
             this.latitud = latitud;
             this.longitud = longitud;
@@ -131,7 +130,6 @@ public class UbicacioRestringida {
      * @param latitud La nueva latitud.
      */
     public void setLatitud(double latitud) {
-        System.out.println(getLimitesRegion());
         if (esLatitudValida(latitud)) {
             this.latitud = latitud;
         }
@@ -143,7 +141,6 @@ public class UbicacioRestringida {
      * @param longitud La nueva longitud.
      */
     public void setLongitud(double longitud) {
-        System.out.println(getLimitesRegion());
         if (esLongitudValida(longitud)) {
             this.longitud = longitud;
         }
@@ -155,7 +152,7 @@ public class UbicacioRestringida {
      * @return La información de la ubicación.
      */
     public String toString() {
-        return "Ubicacio [latitud=" + getLatitud() + ", longitud=" + getLongitud() + "]";
+        return "Ubicacio [Latitud = " + getLatitud() + ", Longitud = " + getLongitud() + "]";
     }
 
     /**
@@ -244,8 +241,8 @@ public class UbicacioRestringida {
      * @return Los límites de la región rectangular.
      */
     public static String getLimitesRegion() {
-        return "Latitud Inicial: " + latIni + ", Latitud Final: " + latFi + ", Longitud Inicial: " + lonIni
-                + ", Longitud Final: " + lonFi;
+        return "Limites de la región: Latitud [" + latIni + ", " + latFi + "], Longitud [" + lonIni + ", " + lonFi
+                + "]";
     }
 
     /**
@@ -258,7 +255,7 @@ public class UbicacioRestringida {
      * @return true si la nueva región es más grande, false en caso contrario.
      */
     public static boolean regioMesGran(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
-        return (newLatFi - newLatIni) * (newLonFi - newLonIni) > (latFi - latIni) * (lonFi - lonIni);
+        return newLatIni <= latIni && newLatFi >= latFi && newLonIni <= lonIni && newLonFi >= lonFi;
     }
 
     /**
@@ -270,7 +267,6 @@ public class UbicacioRestringida {
      * @param newLonFi  La nueva longitud final.
      */
     public static void setLimitesRegion(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
-        System.out.println(getLimitesRegion());
         if (regioMesGran(newLatIni, newLatFi, newLonIni, newLonFi)
                 && esAlMapa(newLatIni, newLatFi, newLonIni, newLonFi)) {
             latIni = newLatIni;
