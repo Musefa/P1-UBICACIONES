@@ -91,6 +91,9 @@ public class UbicacioRestringida {
      * @param longitud La longitud de la ubicación.
      */
     public UbicacioRestringida(double latitud, double longitud) {
+        // System.out.println(getLimitesRegion()); Se podria imprimir aquí pero he
+        // decidido mejor hacerlo en UsaUbicacioRestringida.java para dejar los prints
+        // en el testing más limpios
         if (esUbicacioValida(latitud, longitud)) {
             this.latitud = latitud;
             this.longitud = longitud;
@@ -130,6 +133,9 @@ public class UbicacioRestringida {
      * @param latitud La nueva latitud.
      */
     public void setLatitud(double latitud) {
+        // System.out.println(getLimitesRegion()); Se podria imprimir aquí pero he
+        // decidido mejor hacerlo en UsaUbicacioRestringida.java para dejar los prints
+        // en el testing más limpios
         if (esLatitudValida(latitud)) {
             this.latitud = latitud;
         }
@@ -141,6 +147,9 @@ public class UbicacioRestringida {
      * @param longitud La nueva longitud.
      */
     public void setLongitud(double longitud) {
+        // System.out.println(getLimitesRegion()); Se podria imprimir aquí pero he
+        // decidido mejor hacerlo en UsaUbicacioRestringida.java para dejar los prints
+        // en el testing más limpios
         if (esLongitudValida(longitud)) {
             this.longitud = longitud;
         }
@@ -267,6 +276,9 @@ public class UbicacioRestringida {
      * @param newLonFi  La nueva longitud final.
      */
     public static void setLimitesRegion(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+        // System.out.println(getLimitesRegion()); Se podria imprimir aquí pero he
+        // decidido mejor hacerlo en UsaUbicacioRestringida.java para dejar los prints
+        // en el testing más limpios
         if (regioMesGran(newLatIni, newLatFi, newLonIni, newLonFi)
                 && esAlMapa(newLatIni, newLatFi, newLonIni, newLonFi)) {
             latIni = newLatIni;
