@@ -25,7 +25,7 @@ public class UsaUbicacioRestringida {
         UbicacioRestringida.setLimitesRegion(-45.0, 45.0, -90.0, 90.0);
         System.out.println(UbicacioRestringida.getLimitesRegion());
         UbicacioRestringida.setLimitesRegion(-80.0, 80.0, -150.0, 150.0);
-        System.out.println(UbicacioRestringida.getLimitesRegion() + "\n");
+        System.out.println(UbicacioRestringida.getLimitesRegion());
 
         if (UbicacioRestringida.getLimitesRegion()
                 .equals("Limites de la región: Latitud [-80.0, 80.0], Longitud [-150.0, 150.0]")) {

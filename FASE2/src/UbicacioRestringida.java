@@ -27,7 +27,7 @@ public class UbicacioRestringida {
      * @param intervalFi  El final del intervalo.
      * @return true si el valor está dentro del rango, false en caso contrario.
      */
-    public static boolean estaDinsRang(double valor, double intervalIni, double intervalFi) {
+    private static boolean estaDinsRang(double valor, double intervalIni, double intervalFi) {
         return valor >= intervalIni && valor <= intervalFi;
     }
 
@@ -38,7 +38,7 @@ public class UbicacioRestringida {
      * @param longitud La longitud de la ubicación.
      * @return true si la ubicación es válida, false en caso contrario.
      */
-    public static boolean esUbicacioValida(double latitud, double longitud) {
+    private static boolean esUbicacioValida(double latitud, double longitud) {
         return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
                 && estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
                 && estaDinsRang(longitud, lonIni, lonFi)
@@ -51,7 +51,7 @@ public class UbicacioRestringida {
      * @param latitud La latitud a comprobar.
      * @return true si la latitud es válida, false en caso contrario.
      */
-    public static boolean esLatitudValida(double latitud) {
+    private static boolean esLatitudValida(double latitud) {
         return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
                 && estaDinsRang(latitud, latIni, latFi);
     }
@@ -62,7 +62,7 @@ public class UbicacioRestringida {
      * @param longitud La longitud a comprobar.
      * @return true si la longitud es válida, false en caso contrario.
      */
-    public static boolean esLongitudValida(double longitud) {
+    private static boolean esLongitudValida(double longitud) {
         return estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
                 && estaDinsRang(longitud, lonIni, lonFi);
     }
@@ -77,7 +77,7 @@ public class UbicacioRestringida {
      * @return true si los nuevos límites están dentro del mapa, false en caso
      *         contrario.
      */
-    public static boolean esAlMapa(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+    private static boolean esAlMapa(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
         return estaDinsRang(newLatIni, LATITUD_MIN, LATITUD_MAX)
                 && estaDinsRang(newLonIni, LONGITUD_MIN, LONGITUD_MAX)
                 && estaDinsRang(newLatFi, LATITUD_MIN, LATITUD_MAX)
@@ -263,7 +263,7 @@ public class UbicacioRestringida {
      * @param newLonFi  La nueva longitud final.
      * @return true si la nueva región es más grande, false en caso contrario.
      */
-    public static boolean regioMesGran(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
+    private static boolean regioMesGran(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
         return newLatIni <= latIni && newLatFi >= latFi && newLonIni <= lonIni && newLonFi >= lonFi;
     }
 
