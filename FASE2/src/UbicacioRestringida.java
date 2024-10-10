@@ -41,8 +41,8 @@ public class UbicacioRestringida {
     private static boolean esUbicacioValida(double latitud, double longitud) {
         return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
                 && estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
-                && estaDinsRang(longitud, lonIni, lonFi)
-                && estaDinsRang(latitud, latIni, latFi);
+                && estaDinsRang(longitud, getLonIni(), getLonFi())
+                && estaDinsRang(latitud, getLatIni(), getLatFi());
     }
 
     /**
@@ -53,7 +53,7 @@ public class UbicacioRestringida {
      */
     private static boolean esLatitudValida(double latitud) {
         return estaDinsRang(latitud, LATITUD_MIN, LATITUD_MAX)
-                && estaDinsRang(latitud, latIni, latFi);
+                && estaDinsRang(latitud, getLatIni(), getLatFi());
     }
 
     /**
@@ -64,7 +64,7 @@ public class UbicacioRestringida {
      */
     private static boolean esLongitudValida(double longitud) {
         return estaDinsRang(longitud, LONGITUD_MIN, LONGITUD_MAX)
-                && estaDinsRang(longitud, lonIni, lonFi);
+                && estaDinsRang(longitud, getLonIni(), getLonFi());
     }
 
     /**
@@ -125,6 +125,42 @@ public class UbicacioRestringida {
      */
     public double getLongitud() {
         return longitud;
+    }
+
+    /**
+     * Devuelve la latitud inicial de la región.
+     * 
+     * @return La latitud inicial de la región.
+     */
+    public static double getLatIni() {
+        return latIni;
+    }
+
+    /**
+     * Devuelve longitud inicial de la región.
+     * 
+     * @return La longitud inicial de la región.
+     */
+    public static double getLonIni() {
+        return lonIni;
+    }
+
+    /**
+     * Devuelve la latitud final de la región.
+     * 
+     * @return La latitud final de la región.
+     */
+    public static double getLatFi() {
+        return latFi;
+    }
+
+    /**
+     * Devuelve la longitud final de la región.
+     * 
+     * @return La longitud final de la región.
+     */
+    public static double getLonFi() {
+        return lonFi;
     }
 
     /**
@@ -250,7 +286,8 @@ public class UbicacioRestringida {
      * @return Los límites de la región rectangular.
      */
     public static String getLimitesRegion() {
-        return "Limites de la región: Latitud [" + latIni + ", " + latFi + "], Longitud [" + lonIni + ", " + lonFi
+        return "Limites de la región: Latitud [" + getLatIni() + ", " + getLatFi() + "], Longitud [" + getLonIni()
+                + ", " + getLonFi()
                 + "]";
     }
 
@@ -264,7 +301,7 @@ public class UbicacioRestringida {
      * @return true si la nueva región es más grande, false en caso contrario.
      */
     private static boolean regioMesGran(double newLatIni, double newLatFi, double newLonIni, double newLonFi) {
-        return newLatIni <= latIni && newLatFi >= latFi && newLonIni <= lonIni && newLonFi >= lonFi;
+        return newLatIni <= getLatIni() && newLatFi >= getLatFi() && newLonIni <= getLonIni() && newLonFi >= getLonFi();
     }
 
     /**
