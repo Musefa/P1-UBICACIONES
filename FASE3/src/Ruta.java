@@ -1,32 +1,29 @@
-import java.util.Arrays;
-
 public class Ruta {
     private Ubicacio[] ubicacions;
     private boolean acabaEnOrigen;
     private int numUbicacions;
 
     public Ruta(int mida) {
-        this.ubicacions = new Ubicacio[mida];
+        if (mida > 0) {
+            this.ubicacions = new Ubicacio[mida];
+        } else {
+            this.ubicacions = new Ubicacio[2];
+        }
         this.numUbicacions = 0;
         this.acabaEnOrigen = false;
     }
 
+    public Ruta(int mida, boolean acabaEnOrigen) {
+        if (mida > 0) {
+            this.ubicacions = new Ubicacio[mida];
+        } else {
+            this.ubicacions = new Ubicacio[2];
+        }
+        this.numUbicacions = 0;
+        this.acabaEnOrigen = acabaEnOrigen;
+    }
+
     // Getters i setters
-    public Ubicacio getUbicacio(int index) {
-        Ubicacio ubicacio = ubicacions[index];
-        if (!indexCorrecte(index, getNumUbicacions())) {
-            ubicacio = null;
-        }
-        return ubicacio;
-    }
-
-    public void setUbicacio(int index, Ubicacio ubicacio) {
-        if (indexCorrecte(index, getNumUbicacions())) {
-            ubicacions[index] = ubicacio;
-            setAcabaEnOrigen(ubicacions[0].equals(ubicacions[numUbicacions - 1]));
-        }
-    }
-
     public Ubicacio[] getUbicacions() {
         return ubicacions;
     }
@@ -47,50 +44,52 @@ public class Ruta {
         return numUbicacions;
     }
 
-    public void setNumUbicacions(int numUbicacions) {
-        this.numUbicacions = numUbicacions;
-    }
-
-    private static boolean indexCorrecte(int index, int num) {
-        return index >= 0 && index < num;
-    }
+    /*
+     * public void setNumUbicacions(int numUbicacions) {
+     * this.numUbicacions = numUbicacions;
+     * }
+     */
 
     public void afegirUbicacio(Ubicacio ubicacio) {
-        if (getNumUbicacions() < ubicacions.length) {
-            setUbicacio(getNumUbicacions(), ubicacio);
-            setNumUbicacions(getNumUbicacions() + 1);
-            setAcabaEnOrigen(getNumUbicacions() > 1 && getUbicacio(0).equals(ubicacio));
+        if (numUbicacions == 0) {
+            ubicacions[numUbicacions++] = ubicacio;
 
+        } else if (numUbicacions < ubicacions.length && !(ubicacions[0].equals(ubicacio))) {
+            ubicacions[numUbicacions++] = ubicacio;
         }
     }
 
     public double calcularDistanciaRuta() {
         double distancia = 0.0;
-        for (int i = 0; i < getNumUbicacions() - 1; i++) {
-            distancia += getUbicacio(i).distancia(getUbicacio(i + 1));
+        for (int i = 0; i < numUbicacions - 1; i++) {
+            distancia += ubicacions[i].distancia(ubicacions[i + 1]);
         }
         if (getAcabaEnOrigen()) {
-            distancia += getUbicacio(getNumUbicacions() - 1).distancia(getUbicacio(0));
+            distancia += ubicacions[numUbicacions - 1].distancia(ubicacions[0]);
         }
         return distancia;
     }
 
     public Ubicacio ubicacioMesAlNord() {
-        Ubicacio mesAlNord = getUbicacio(0);
-        for (int i = 1; i < getNumUbicacions(); i++) {
-            if (getUbicacio(i).getLatitud() > mesAlNord.getLatitud()) {
-                mesAlNord = getUbicacio(i);
+        Ubicacio mesAlNord = ubicacions[0];
+        for (int i = 1; i < numUbicacions; i++) {
+            if (ubicacions[i].getLatitud() > mesAlNord.getLatitud()) {
+                mesAlNord = ubicacions[i];
             }
         }
         return mesAlNord;
     }
 
-    @Override
     public String toString() {
-        return "Ruta{" +
-                "ubicacions=" + Arrays.toString(ubicacions) +
-                ", acabaEnOrigen=" + acabaEnOrigen +
-                ", numUbicacions=" + numUbicacions +
-                '}';
+        String aux = "Ruta => Nombre de ubicacions: " + numUbicacions;
+
+        if (getAcabaEnOrigen()) {
+            aux = aux + "\n\tLa ruta acaba en el origen:";
+        }
+
+        for (int i = 0; i < numUbicacions; i++) {
+            aux = aux + "\n\tUbicacio posicio " + i + ": " + ubicacions[i].toString();
+        }
+        return aux;
     }
 }
