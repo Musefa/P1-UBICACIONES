@@ -129,7 +129,7 @@ public class Ubicacio {
      * @param ubicacio la ubicación a comparar
      * @return true si las ubicaciones son iguales, false en caso contrario
      */
-    private boolean equalsUbicacio(Ubicacio ubicacio) {
+    public boolean equalsUbicacio(Ubicacio ubicacio) {
         return Math.abs(this.getLatitud() - ubicacio.getLatitud()) < TOLERANCIA
                 && Math.abs(this.getLongitud() - ubicacio.getLongitud()) < TOLERANCIA;
     }

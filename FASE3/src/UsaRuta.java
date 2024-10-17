@@ -92,7 +92,7 @@ public class UsaRuta {
         System.out.println(r1.ubicacioMesAlNord());
         System.out.println(r2.ubicacioMesAlNord());
 
-        if (r1.ubicacioMesAlNord().equals(u2) && r2.ubicacioMesAlNord().equals(u2)) {
+        if (r1.ubicacioMesAlNord().equalsUbicacio(u2) && r2.ubicacioMesAlNord().equalsUbicacio(u2)) {
             System.out.println("Correcte!\n");
         } else {
             System.out.println("Incorrecte!\n");

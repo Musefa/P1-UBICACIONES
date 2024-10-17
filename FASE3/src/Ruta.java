@@ -87,10 +87,10 @@ public class Ruta {
      */
     public void afegirUbicacio(Ubicacio ubicacio) {
         if (numUbicacions == 0) {
-            ubicacions[numUbicacions++] = ubicacio;
+            ubicacions[numUbicacions++] = ubicacio.copiaUbicacio();
 
         } else if (numUbicacions < ubicacions.length && !(ubicacions[0].equals(ubicacio))) {
-            ubicacions[numUbicacions++] = ubicacio;
+            ubicacions[numUbicacions++] = ubicacio.copiaUbicacio();
         }
     }
 
@@ -104,7 +104,7 @@ public class Ruta {
     public Ubicacio consultarUbicacio(int posicio) {
         Ubicacio ubicacio = null;
         if (posicio >= 0 && posicio < numUbicacions) {
-            ubicacio = ubicacions[posicio];
+            ubicacio = ubicacions[posicio].copiaUbicacio();
         }
         return ubicacio;
     }
@@ -146,7 +146,7 @@ public class Ruta {
         Ubicacio mesAlNord = ubicacions[0];
         for (int i = 1; i < numUbicacions; i++) {
             if (ubicacions[i].getLatitud() > mesAlNord.getLatitud()) {
-                mesAlNord = ubicacions[i];
+                mesAlNord = ubicacions[i].copiaUbicacio();
             }
         }
         return mesAlNord;
